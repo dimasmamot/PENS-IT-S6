@@ -1,0 +1,32 @@
+clf
+gambar=imread('images.jpg');
+size(gambar)
+figure, image(gambar);
+I=gambar(200:300,170:300,:);
+figure, image(I);truesize;
+red=gambar(:,:,1);
+green=gambar(:,:,2);
+blue=gambar(:,:,3);
+%a = zeros(size(gambar, 1), size(gambar, 2));%inisialisasi
+%just_red = cat(3, red, a, a);
+%just_green = cat(3, a, green, a);
+%just_blue = cat(3, a, a, blue);
+%just_grayr = cat(3, red, red, red);
+%just_grayg = cat(3, green, green, green);
+%just_grayb = cat(3, blue, blue, blue);
+  %back_to_original_img = cat(3, red, green, blue);
+  %figure, imshow(gambar), title('Original image')
+%figure, imshow(just_red), title('Red channel')
+%figure, imshow(just_green), title('Green channel')
+%figure, imshow(just_blue), title('Blue channel')
+%figure, imshow(just_grayr), title('Gray channel red')
+%figure, imshow(just_grayg), title('Gray channel green')
+%figure, imshow(just_grayb), title('Gray channel blue')
+%figure, imshow(back_to_original_img), title('Back to original image')
+%sephia=uint8(cat(3,((red*.393)+(green*0.769)+(blue*.189)),((red*.349)+(green*.686)+(blue*.168)),((red*.272)+(green*.534)+(blue*.131))));
+%figure,imshow(sephia),title('Sephia');
+%gray=(red+green+blue)/3;
+%figure,imshow(gray),title('Gray Scale');
+%figure,imshow(red);
+%figure,imshow(green);
+%figure,imshow(blue);
