@@ -1,0 +1,38 @@
+Private Sub Command4_Click()
+For i = 0 To 89
+    h(i) = 0
+Next i
+For i = 0 To nx - 1
+    For j = 0 To ny - 1
+        w = Picture1.Point(i, j)
+        r = w And RGB(255, 0, 0)
+        g = Int((w And RGB(0, 255, 0)) / 256)
+        b = Int(Int((w And RGB(0, 0, 255)) / 256) / 256)
+        ma = smax(r, g, b)
+        mi = smin(r, g, b)
+        d = ma - mi
+        If d > 0 Then
+            If ma = r Then k = 60 * (g - b) / d
+            If ma = g Then k = 60 * ((b - r) / d + 2)
+            If ma = b Then k = 60 * ((r - g) / d + 4)
+            If k < 0 Then k = 360 - k
+            indek = Int(90 * k / 360)
+        Else
+            indek = 0
+        End If
+        h(indek) = h(indek) + 1
+    Next j
+Next i
+hmaks = 0
+For i = 1 To 89
+    If h(i) > hmaks Then hmaks = h(i)
+Next i
+Picture2.ScaleHeight = hmaks
+Picture2.ScaleWidth = 90
+Picture2.Cls
+For i = 1 To 89
+    Picture2.Line (i, hmaks)-(i - 1, hmaks - h(i)), vbRed, BF
+    Picture2.Line (i, hmaks)-(i - 1, hmaks - h(i)), RGB(0, 0, 0), B
+Next i
+Picture2.Refresh
+End Sub

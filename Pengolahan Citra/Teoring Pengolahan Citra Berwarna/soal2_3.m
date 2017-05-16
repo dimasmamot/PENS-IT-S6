@@ -1,0 +1,11 @@
+img = imread('bunga_warna.jpg');
+img_hsv = rgb2hsv(img);
+hue = img_hsv(:,:,1);
+saturation = img_hsv(:,:,2);
+value = img_hsv(:,:,3);
+hue_cs = imadjust(hue);
+saturation_cs = imadjust(saturation);
+value_cs = imadjust(value);
+HSV_cs = cat(3,hue_cs,saturation_cs,value_cs);
+subplot(1,2,1), imshow(img_hsv), title('Gambar HSV');
+subplot(1,2,2), imshow(HSV_cs), title('Contrast Stretching');

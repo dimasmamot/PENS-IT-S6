@@ -1,0 +1,39 @@
+Private Sub Command1_Click()
+k = Val(Text1)
+bg = Int(256 / k)
+For i = 0 To k * 3
+    h(i) = 0
+Next i
+For i = 0 To nx - 1
+    For j = 0 To ny - 1
+        w = Picture1.Point(i, j)
+        r = w And RGB(255, 0, 0)
+        g = Int((w And RGB(0, 255, 0)) / 256)
+        b = Int(Int((w And RGB(0, 0, 255)) / 256) / 256)
+        r = Int(r / bg)
+        g = Int(g / bg)
+        b = Int(b / bg)
+        h(r) = h(r) + 1
+        h(k + g) = h(k + g) + 1
+        h(2 * k + b) = h(2 * k + b) + 1
+    Next j
+Next i
+hmaks = 0
+For i = 0 To k * 3
+    If h(i) > hmaks Then hmaks = h(i)
+Next i
+Picture2.ScaleHeight = hmaks
+Picture2.ScaleWidth = k * 3
+Picture2.Cls
+For i = 0 To k - 1
+    Picture2.Line (i, hmaks)-(i + 1, hmaks - h(i)), RGB(255, 0, 0), BF
+    Picture2.Line (k + i, hmaks)-(k + i + 1, hmaks - h(k + i)), RGB(0, 255, 0), BF
+    Picture2.Line (2 * k + i, hmaks)-(2 * k + i + 1, hmaks - h(2 * k + i)), RGB(0, 0, 255), BF
+    If k < 128 Then
+    Picture2.Line (i, hmaks)-(i + 1, hmaks - h(i)), RGB(0, 0, 0), B
+    Picture2.Line (k + i, hmaks)-(k + i + 1, hmaks - h(k + i)), RGB(0, 0, 0), B
+    Picture2.Line (2 * k + i, hmaks)-(2 * k + i + 1, hmaks - h(2 * k + i)), RGB(0, 0, 0), B
+    End If
+Next i
+Picture2.Refresh
+End Sub

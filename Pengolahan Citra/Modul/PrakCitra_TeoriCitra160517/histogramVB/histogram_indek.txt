@@ -1,0 +1,34 @@
+Private Sub Command2_Click()
+k = Val(Text1)
+bg = Int(256 / k)
+For i = 0 To k ^ 3
+    h(i) = 0
+Next i
+For i = 0 To nx - 1
+    For j = 0 To ny - 1
+        w = Picture1.Point(i, j)
+        r = w And RGB(255, 0, 0)
+        g = Int((w And RGB(0, 255, 0)) / 256)
+        b = Int(Int((w And RGB(0, 0, 255)) / 256) / 256)
+        r = Int(r / bg)
+        g = Int(g / bg)
+        b = Int(b / bg)
+        indek = k ^ 2 * r + k * g + b
+        h(indek) = h(indek) + 1
+    Next j
+Next i
+hmaks = 0
+For i = 0 To k ^ 3 - 1
+    If h(i) > hmaks Then hmaks = h(i)
+Next i
+Picture2.ScaleHeight = hmaks
+Picture2.ScaleWidth = k ^ 3
+Picture2.Cls
+For i = 0 To k ^ 3 - 1
+    Picture2.Line (i, hmaks)-(i + 1, hmaks - h(i)), RGB(255, 0, 0), BF
+    If k < 8 Then
+    Picture2.Line (i, hmaks)-(i + 1, hmaks - h(i)), RGB(0, 0, 0), B
+    End If
+Next i
+Picture2.Refresh
+End Sub

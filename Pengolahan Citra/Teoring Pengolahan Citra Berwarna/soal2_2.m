@@ -1,0 +1,11 @@
+img = imread('bunga_warna.jpg');
+img_hsv = rgb2hsv(img);
+hue = img_hsv(:,:,1);
+saturation = img_hsv(:,:,2);
+value = img_hsv(:,:,3);
+hue_histeq = histeq(hue);
+saturation_histeq = histeq(saturation);
+value_histeq = histeq(value);
+HSV_histeq = cat(3,hue_histeq,saturation_histeq,value_histeq);
+subplot(1,2,1), imshow(img_hsv), title('Gambar HSV');
+subplot(1,2,2), imshow(HSV_histeq), title('Histogram Equalization');

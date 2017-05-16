@@ -1,0 +1,12 @@
+img = imread('bunga_warna.jpg');
+red = img(:,:,1);
+green = img(:,:,2);
+blue = img(:,:,3);
+zero = zeros(size(img, 1), size(img, 2));
+just_red = cat(3, red, zero, zero);  
+just_green = cat(3, zero, green, zero);  
+just_blue = cat(3, zero, zero, blue);  
+subplot(2,2,1), imshow(img), title('Gambar RGB');
+subplot(2,2,2), imshow(just_red), title('Gambar Red');
+subplot(2,2,3), imshow(just_green), title('Gambar Green');
+subplot(2,2,4), imshow(just_blue), title('Gambar Blue');
