@@ -28,12 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea25 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series25 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea26 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series26 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea27 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series27 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
@@ -84,45 +84,45 @@
             // 
             // chart1
             // 
-            chartArea25.CursorX.LineWidth = 0;
-            chartArea25.CursorY.LineWidth = 0;
-            chartArea25.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea25);
+            chartArea1.CursorX.LineWidth = 0;
+            chartArea1.CursorY.LineWidth = 0;
+            chartArea1.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea1);
             this.chart1.Location = new System.Drawing.Point(220, 12);
             this.chart1.Name = "chart1";
-            series25.ChartArea = "ChartArea1";
-            series25.Name = "Series1";
-            this.chart1.Series.Add(series25);
+            series1.ChartArea = "ChartArea1";
+            series1.Name = "Series1";
+            this.chart1.Series.Add(series1);
             this.chart1.Size = new System.Drawing.Size(835, 158);
             this.chart1.TabIndex = 3;
             this.chart1.Text = "chart1";
             // 
             // chart2
             // 
-            chartArea26.CursorX.LineWidth = 0;
-            chartArea26.CursorY.LineWidth = 0;
-            chartArea26.Name = "ChartArea1";
-            this.chart2.ChartAreas.Add(chartArea26);
+            chartArea2.CursorX.LineWidth = 0;
+            chartArea2.CursorY.LineWidth = 0;
+            chartArea2.Name = "ChartArea1";
+            this.chart2.ChartAreas.Add(chartArea2);
             this.chart2.Location = new System.Drawing.Point(220, 186);
             this.chart2.Name = "chart2";
-            series26.ChartArea = "ChartArea1";
-            series26.Name = "Series1";
-            this.chart2.Series.Add(series26);
+            series2.ChartArea = "ChartArea1";
+            series2.Name = "Series1";
+            this.chart2.Series.Add(series2);
             this.chart2.Size = new System.Drawing.Size(835, 158);
             this.chart2.TabIndex = 4;
             this.chart2.Text = "chart2";
             // 
             // chart3
             // 
-            chartArea27.CursorX.LineWidth = 0;
-            chartArea27.CursorY.LineWidth = 0;
-            chartArea27.Name = "ChartArea1";
-            this.chart3.ChartAreas.Add(chartArea27);
+            chartArea3.CursorX.LineWidth = 0;
+            chartArea3.CursorY.LineWidth = 0;
+            chartArea3.Name = "ChartArea1";
+            this.chart3.ChartAreas.Add(chartArea3);
             this.chart3.Location = new System.Drawing.Point(220, 363);
             this.chart3.Name = "chart3";
-            series27.ChartArea = "ChartArea1";
-            series27.Name = "Series1";
-            this.chart3.Series.Add(series27);
+            series3.ChartArea = "ChartArea1";
+            series3.Name = "Series1";
+            this.chart3.Series.Add(series3);
             this.chart3.Size = new System.Drawing.Size(835, 158);
             this.chart3.TabIndex = 5;
             this.chart3.Text = "chart3";

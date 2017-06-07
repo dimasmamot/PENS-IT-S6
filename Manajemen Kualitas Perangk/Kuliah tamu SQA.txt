@@ -1,0 +1,128 @@
+How important automation test ?
+1
+
+Automated Testing : 
+1 Tulis scenario
+	- Describe behaviout
+	- Write step definition
+
+BDD Convept
+- Given : Kondisi yang harus dipenuhi  
+- When : Apa yang harus dilakukan
+- Then : Hasil yang ingin didapat
+
+Example :
+	Story : I want to eat delicious meat balls
+	Scenario : Pergi ke restauran terus makan bakso
+
+	Given : Saya sudah di restauran
+	When : Saya pesan bakso
+	Then : Saya harusnya dapet bakso
+
+=============================================================
+Tools : 
+- Jenkins
+- JIRA
+- Appium
+- Spring
+- Testlink
+- Spring
+- Selenium Webdriver
+- Surabaya QA Util
+
+===================================
+Flow Testing
+- PM/PO/BA memberikan BRD(Requirement)
+- QA mempelajari BRD, jika fitur yang ada sekiranya tidak dapat diimplementasikan, QA harus memberitahu PM/PO/BA
+	Harus dilakukan pada awal tahap, jangan samapi pada saat tengah tengah
+- Membuat test case berdasarkan framework automated test
+- Di review oleh BA atau PM atau PO
+- Mengembangkan automation test
+	- Run test case -> Manual testing
+	- Monitoring test case, jika ada bug, maka CREATED ISSUE
+		Jika tidak ada, dispesifikan, apakah pass atau fail
+
+===================================
+
+- QA dapat berkembang menjadi
+	- Business analyst
+	- CEO
+	- Auditor
+==================================
+IMPORTANCE OF PERFORMANCE TESTING
+==================================
+Performance testing lifecycle
+	- Identify test environment
+		Berhubungan dengan server, berapa utilaisasi dan berapa rationnya (?)
+	- Identify pergormance acceptance criteria
+		Cek kriteria, mirip dengan requirement analysis
+	- workload model, land dan design test
+		Menganalisa kejadian behaviour user yang sebenarnya
+	- Create script & Scenario
+	- Execute test
+	- Analyze, Report, Tune dan Retest
+
+Ideal team
+	- Dev Team
+	- Architects
+	- Ops/DBA
+	- Perf Team
+
+Jenis-jenis perfomance testing
+	- Load testing
+	- endurance testing
+		Apakah servernya kuat menerima 
+	- Stress testing
+		Test seer sampai overload
+	- Spike training
+	- Volume testing
+		Generate data ke database
+	- Scalability testing
+
+====================================
+Keterbatasan manual testing 
+
+Keuntungan automation testing
+- Memecahkan masalah keterbatasan resource
+	- Menjalankan vuser secara bersamaan
+
+=================================
+PERFORMANCE CONCEPTS
+================================
+Throughput : Seberapa kuat server untuk menghandle proses (process rate)
+
+PERFORMANCE RESULTS ANALYSIS
+----------------------------
+- Response under load
+- Request handled pre second
+
+Pada automated testing memiliki APM(Application Performance Management)
+- Preventing poor performance wiht a little wokr every day from everyone
+
+Toolbox
+- Perf test tools
+	- WAPT
+	- JMETER
+===================================================================================
+
+1. Yang harus dipelajari untuk menjadi SQA
+	- blajar java OOP
+	- rasa ingin ngehack (?)
+2. Identified acceptance criteria, apakah acceptance criteria itu fixed atau bagaimana
+3. Ada kah, kasus dimana ada segi kesalahan di segi QA yang berdampak buruk bagi perusahaan ?
+	- 
+4. Code profiling apakah sama dengan automated test
+	- 
+
+===================================================================================
+
+Selenium : Tools untuk membuat automation berbasis web
+Jbhave : Merupakan framework yang digunakan untuk automation, ditulis dalam bahasa manusia
+Serenity Reporting : 
+
+=================================================================================
+
+Cara membuat automation sederhadana
+
+1.
+2. Cari archetype, cari di google, lalu masukin grout id, artifact id, version dan repository
