@@ -1,0 +1,1047 @@
+
+<!DOCTYPE Metadata [
+  <!ENTITY % BIND_VALUES PUBLIC "OLAP BIND VALUES" "OLAP METADATA">
+  %BIND_VALUES;
+  ]>
+<Metadata
+  Version="1.0">
+  <Cube
+    Name="UNITS_CUBE"
+    ConsistentSolve="SOLVE 
+(
+  SUM OVER &quot;TIME&quot;, 
+  SUM OVER CHANNEL, 
+  SUM OVER CUSTOMER, 
+  SUM OVER PRODUCT
+)"
+    ETViewName="UNITS_CUBE_VIEW">
+    <Organization>
+      <AWCubeOrganization
+        NullStorage="MV_READY"
+        MVOption="NONE"
+        SparseType="COMPRESSED"
+        CubeStorageType="NUMBER"
+        DefaultBuild="BUILD SPEC Load_and_Aggregate
+(
+  LOAD NO SYNCH, 
+  SOLVE, 
+  ANALYZE
+)"
+        PrecomputePercent="20"
+        MeasureStorage="SHARED">
+        <AW
+          Name="&AW_NAME;"/>
+        <MVCreationOptions
+          RefreshType="FORCE"
+          RefreshOn="DEMAND"
+          UsingConstraintsClause="TRUSTED"
+          EnableRewriteMV="False">
+        </MVCreationOptions>
+        <SparseDimension
+          Name="CHANNEL"/>
+        <SparseDimension
+          Name="CUSTOMER"/>
+        <SparseDimension
+          Name="PRODUCT"/>
+        <BuildSpecifications
+          Value="BUILD SPEC Load_and_Aggregate
+(
+  LOAD NO SYNCH, 
+  SOLVE, 
+  ANALYZE
+)"/>
+      </AWCubeOrganization>
+    </Organization>
+    <Dimensionality
+      Name="TIME"
+      ETKeyColumnName="TIME">
+      <Dimension
+        Name="TIME"/>
+    </Dimensionality>
+    <Dimensionality
+      Name="CHANNEL"
+      ETKeyColumnName="CHANNEL">
+      <Dimension
+        Name="CHANNEL"/>
+    </Dimensionality>
+    <Dimensionality
+      Name="CUSTOMER"
+      ETKeyColumnName="CUSTOMER">
+      <Dimension
+        Name="CUSTOMER"/>
+    </Dimensionality>
+    <Dimensionality
+      Name="PRODUCT"
+      ETKeyColumnName="PRODUCT">
+      <Dimension
+        Name="PRODUCT"/>
+    </Dimensionality>
+    <Description
+      Language="AMERICAN_AMERICA.WE8MSWIN1252"
+      Type="LongDescription"
+      Value="Units Cube">
+    </Description>
+    <Description
+      Language="AMERICAN_AMERICA.WE8MSWIN1252"
+      Type="ShortDescription"
+      Value="Units Cube">
+    </Description>
+    <Description
+      Language="AMERICAN_AMERICA.WE8MSWIN1252"
+      Type="Description"
+      Value="Units Cube">
+    </Description>
+    <Measure>
+      <BaseMeasure
+        Name="UNITS"
+        SQLDataType="NUMBER"
+        ETMeasureColumnName="UNITS">
+        <Description
+          Language="AMERICAN_AMERICA.WE8MSWIN1252"
+          Type="LongDescription"
+          Value="Units">
+        </Description>
+        <Description
+          Language="AMERICAN_AMERICA.WE8MSWIN1252"
+          Type="ShortDescription"
+          Value="Units">
+        </Description>
+        <Description
+          Language="AMERICAN_AMERICA.WE8MSWIN1252"
+          Type="Description"
+          Value="Units">
+        </Description>
+      </BaseMeasure>
+    </Measure>
+    <Measure>
+      <BaseMeasure
+        Name="SALES"
+        SQLDataType="NUMBER"
+        ETMeasureColumnName="SALES">
+        <Description
+          Language="AMERICAN_AMERICA.WE8MSWIN1252"
+          Type="LongDescription"
+          Value="Sales">
+        </Description>
+        <Description
+          Language="AMERICAN_AMERICA.WE8MSWIN1252"
+          Type="ShortDescription"
+          Value="Sales">
+        </Description>
+        <Description
+          Language="AMERICAN_AMERICA.WE8MSWIN1252"
+          Type="Description"
+          Value="Sales">
+        </Description>
+      </BaseMeasure>
+    </Measure>
+    <Measure>
+      <BaseMeasure
+        Name="COST"
+        SQLDataType="NUMBER"
+        ETMeasureColumnName="COST">
+        <Description
+          Language="AMERICAN_AMERICA.WE8MSWIN1252"
+          Type="LongDescription"
+          Value="Cost">
+        </Description>
+        <Description
+          Language="AMERICAN_AMERICA.WE8MSWIN1252"
+          Type="ShortDescription"
+          Value="Cost">
+        </Description>
+        <Description
+          Language="AMERICAN_AMERICA.WE8MSWIN1252"
+          Type="Description"
+          Value="Cost">
+        </Description>
+      </BaseMeasure>
+    </Measure>
+    <Measure>
+      <DerivedMeasure
+        ETMeasureColumnName="SALES_3_PER_MOVAVG"
+        Name="SALES_3_PER_MOVAVG"
+        MeasureExpression="AVG(UNITS_CUBE.SALES) OVER HIERARCHY (&quot;TIME&quot;.CALENDAR BETWEEN 2 PRECEDING AND CURRENT MEMBER WITHIN LEVEL)">
+        <Classification
+          Value="AwmDescriptionType=TIME_MOV_AVG"/>
+        <Description
+          Type="AWMDescriptionType"
+          Language="AMERICAN"
+          Value="TIME_MOV_AVG">
+        </Description>
+        <Description
+          Type="Description"
+          Language="AMERICAN"
+          Value="Sales 3 Period Moving Avg">
+        </Description>
+        <Description
+          Type="LongDescription"
+          Language="AMERICAN"
+          Value="Sales 3 Period Moving Avg">
+        </Description>
+        <Description
+          Type="ShortDescription"
+          Language="AMERICAN"
+          Value="Sales 3 Period Moving Avg">
+        </Description>
+      </DerivedMeasure>
+    </Measure>
+    <Measure>
+      <DerivedMeasure
+        ETMeasureColumnName="SALES_CHG_PP"
+        Name="SALES_CHG_PP"
+        MeasureExpression="LAG_VARIANCE(UNITS_CUBE.SALES, 1) OVER HIERARCHY (&quot;TIME&quot;.CALENDAR)">
+        <Classification
+          Value="AwmDescriptionType=TIMESERIES_PRIOR PERIOD"/>
+        <Classification
+          Value="AwmDescriptionType=TIMESERIES_PRIOR PERIOD DIFFERENCE"/>
+        <Description
+          Type="AWMDescriptionType"
+          Language="AMERICAN">
+        </Description>
+        <Description
+          Type="Description"
+          Language="AMERICAN"
+          Value="Sales Change Prior Period">
+        </Description>
+        <Description
+          Type="LongDescription"
+          Language="AMERICAN"
+          Value="Sales Change Prior Period">
+        </Description>
+        <Description
+          Type="ShortDescription"
+          Language="AMERICAN"
+          Value="Sales Change Prior Period">
+        </Description>
+      </DerivedMeasure>
+    </Measure>
+    <Measure>
+      <DerivedMeasure
+        ETMeasureColumnName="SALES_CHG_PY"
+        Name="SALES_CHG_PY"
+        MeasureExpression="LAG_VARIANCE(UNITS_CUBE.SALES, 1) OVER HIERARCHY (&quot;TIME&quot;.CALENDAR BY ANCESTOR AT LEVEL &quot;TIME&quot;.CALENDAR.CALENDAR_YEAR POSITION FROM BEGINNING)">
+        <Classification
+          Value="AwmDescriptionType=TIME_PAR_PERIOD"/>
+        <Classification
+          Value="AwmDescriptionType=TIME_DIFF_PAR_PERIOD"/>
+        <Description
+          Type="AWMDescriptionType"
+          Language="AMERICAN">
+        </Description>
+        <Description
+          Type="Description"
+          Language="AMERICAN"
+          Value="Sales Change Prior Year">
+        </Description>
+        <Description
+          Type="LongDescription"
+          Language="AMERICAN"
+          Value="Sales Change Prior Year">
+        </Description>
+        <Description
+          Type="ShortDescription"
+          Language="AMERICAN"
+          Value="Sales Change Prior Year">
+        </Description>
+      </DerivedMeasure>
+    </Measure>
+    <Measure>
+      <DerivedMeasure
+        ETMeasureColumnName="SALES_PCT_CHG_PP"
+        Name="SALES_PCT_CHG_PP"
+        MeasureExpression="LAG_VARIANCE_PERCENT(UNITS_CUBE.SALES, 1) OVER HIERARCHY (&quot;TIME&quot;.CALENDAR) * 100">
+        <Classification
+          Value="AwmDescriptionType=FREE_FORM"/>
+        <Description
+          Type="AWMDescriptionType"
+          Language="AMERICAN">
+        </Description>
+        <Description
+          Type="Description"
+          Language="AMERICAN"
+          Value="Sales % Chg Prior Period">
+        </Description>
+        <Description
+          Type="LongDescription"
+          Language="AMERICAN"
+          Value="Sales % Chg Prior Period">
+        </Description>
+        <Description
+          Type="ShortDescription"
+          Language="AMERICAN"
+          Value="Sales % Chg Prior Period">
+        </Description>
+      </DerivedMeasure>
+    </Measure>
+    <Measure>
+      <DerivedMeasure
+        ETMeasureColumnName="SALES_PCT_CHG_PY"
+        Name="SALES_PCT_CHG_PY"
+        MeasureExpression="LAG_VARIANCE_PERCENT(UNITS_CUBE.SALES, 1) OVER HIERARCHY (&quot;TIME&quot;.CALENDAR BY ANCESTOR AT LEVEL &quot;TIME&quot;.CALENDAR.CALENDAR_YEAR POSITION FROM BEGINNING) * 100">
+        <Classification
+          Value="AwmDescriptionType=FREE_FORM"/>
+        <Description
+          Type="AWMDescriptionType"
+          Language="AMERICAN"
+          Value="FREE_FORM">
+        </Description>
+        <Description
+          Type="Description"
+          Language="AMERICAN"
+          Value="Sales % Chg Prior Year">
+        </Description>
+        <Description
+          Type="LongDescription"
+          Language="AMERICAN"
+          Value="Sales % Chg Prior Year">
+        </Description>
+        <Description
+          Type="ShortDescription"
+          Language="AMERICAN"
+          Value="Sales % Chg Prior Year">
+        </Description>
+      </DerivedMeasure>
+    </Measure>
+    <Measure>
+      <DerivedMeasure
+        ETMeasureColumnName="SALES_PP"
+        Name="SALES_PP"
+        MeasureExpression="LAG(UNITS_CUBE.SALES, 1) OVER HIERARCHY (&quot;TIME&quot;.CALENDAR)">
+        <Classification
+          Value="AwmDescriptionType=TIMESERIES_PRIOR PERIOD"/>
+        <Description
+          Type="AWMDescriptionType"
+          Language="AMERICAN"
+          Value="TIMESERIES_PRIOR PERIOD">
+        </Description>
+        <Description
+          Type="Description"
+          Language="AMERICAN"
+          Value="Sales Prior Period">
+        </Description>
+        <Description
+          Type="LongDescription"
+          Language="AMERICAN"
+          Value="Sales Prior Period">
+        </Description>
+        <Description
+          Type="ShortDescription"
+          Language="AMERICAN"
+          Value="Sales Prior Period">
+        </Description>
+      </DerivedMeasure>
+    </Measure>
+    <Measure>
+      <DerivedMeasure
+        ETMeasureColumnName="SALES_PROD_PRNT_SHARE"
+        Name="SALES_PROD_PRNT_SHARE"
+        MeasureExpression="SHARE(UNITS_CUBE.SALES OF PRODUCT.PRIMARY PARENT) * 100">
+        <Classification
+          Value="AwmDescriptionType=SHARE"/>
+        <Description
+          Type="AWMDescriptionType"
+          Language="AMERICAN"
+          Value="SHARE">
+        </Description>
+        <Description
+          Type="Description"
+          Language="AMERICAN"
+          Value="Sales Share of Prod Parent">
+        </Description>
+        <Description
+          Type="LongDescription"
+          Language="AMERICAN"
+          Value="Sales Share of Prod Parent">
+        </Description>
+        <Description
+          Type="ShortDescription"
+          Language="AMERICAN"
+          Value="Sales Share of Prod Parent">
+        </Description>
+      </DerivedMeasure>
+    </Measure>
+    <Measure>
+      <DerivedMeasure
+        ETMeasureColumnName="SALES_PROD_TOT_SHARE"
+        Name="SALES_PROD_TOT_SHARE"
+        MeasureExpression="SHARE(UNITS_CUBE.SALES OF PRODUCT.PRIMARY TOP) * 100">
+        <Classification
+          Value="AwmDescriptionType=SHARE"/>
+        <Description
+          Type="AWMDescriptionType"
+          Language="AMERICAN"
+          Value="SHARE">
+        </Description>
+        <Description
+          Type="Description"
+          Language="AMERICAN"
+          Value="Sales Share of Total Product">
+        </Description>
+        <Description
+          Type="LongDescription"
+          Language="AMERICAN"
+          Value="Sales Share of Total Product">
+        </Description>
+        <Description
+          Type="ShortDescription"
+          Language="AMERICAN"
+          Value="Sales Share of Total Product">
+        </Description>
+      </DerivedMeasure>
+    </Measure>
+    <Measure>
+      <DerivedMeasure
+        ETMeasureColumnName="SALES_PY"
+        Name="SALES_PY"
+        MeasureExpression="LAG(UNITS_CUBE.SALES, 1) OVER HIERARCHY (&quot;TIME&quot;.CALENDAR BY ANCESTOR AT LEVEL &quot;TIME&quot;.CALENDAR.CALENDAR_YEAR POSITION FROM BEGINNING)">
+        <Classification
+          Value="AwmDescriptionType=TIME_PAR_PERIOD"/>
+        <Description
+          Type="AWMDescriptionType"
+          Language="AMERICAN"
+          Value="TIME_PAR_PERIOD">
+        </Description>
+        <Description
+          Type="Description"
+          Language="AMERICAN"
+          Value="Sales Prior Year">
+        </Description>
+        <Description
+          Type="LongDescription"
+          Language="AMERICAN"
+          Value="Sales Prior Year">
+        </Description>
+        <Description
+          Type="ShortDescription"
+          Language="AMERICAN"
+          Value="Sales Prior Year">
+        </Description>
+      </DerivedMeasure>
+    </Measure>
+    <Measure>
+      <DerivedMeasure
+        ETMeasureColumnName="SALES_YTD"
+        Name="SALES_YTD"
+        MeasureExpression="SUM(UNITS_CUBE.SALES) OVER HIERARCHY (&quot;TIME&quot;.CALENDAR BETWEEN UNBOUNDED PRECEDING AND CURRENT MEMBER WITHIN ANCESTOR AT LEVEL &quot;TIME&quot;.CALENDAR_YEAR)">
+        <Classification
+          Value="AwmDescriptionType=TIMESERIES_PERIOD TO DATE"/>
+        <Description
+          Type="AWMDescriptionType"
+          Language="AMERICAN">
+        </Description>
+        <Description
+          Type="Description"
+          Language="AMERICAN"
+          Value="Sales YTD">
+        </Description>
+        <Description
+          Type="LongDescription"
+          Language="AMERICAN"
+          Value="Sales YTD">
+        </Description>
+        <Description
+          Type="ShortDescription"
+          Language="AMERICAN"
+          Value="Sales YTD">
+        </Description>
+      </DerivedMeasure>
+    </Measure>
+    <Measure>
+      <DerivedMeasure
+        ETMeasureColumnName="SALES_YTD_CHG_PY"
+        Name="SALES_YTD_CHG_PY"
+        MeasureExpression="LAG_VARIANCE(UNITS_CUBE.SALES_YTD, 1) OVER HIERARCHY (&quot;TIME&quot;.CALENDAR BY ANCESTOR AT LEVEL &quot;TIME&quot;.CALENDAR.CALENDAR_YEAR POSITION FROM BEGINNING)">
+        <Classification
+          Value="AwmDescriptionType=TIMESERIES_PERIOD TO DATE PERIOD AGO DIFF"/>
+        <Classification
+          Value="AwmDescriptionType=TIME_DIFF_PAR_PERIOD"/>
+        <Description
+          Type="AWMDescriptionType"
+          Language="AMERICAN">
+        </Description>
+        <Description
+          Type="Description"
+          Language="AMERICAN"
+          Value="Sales YTD Chg Prior Year">
+        </Description>
+        <Description
+          Type="LongDescription"
+          Language="AMERICAN"
+          Value="Sales YTD Chg Prior Year">
+        </Description>
+        <Description
+          Type="ShortDescription"
+          Language="AMERICAN"
+          Value="Sales YTD Chg Prior Year">
+        </Description>
+      </DerivedMeasure>
+    </Measure>
+    <Measure>
+      <DerivedMeasure
+        ETMeasureColumnName="SALES_YTD_PCT_CHG_PY"
+        Name="SALES_YTD_PCT_CHG_PY"
+        MeasureExpression="LAG_VARIANCE_PERCENT(UNITS_CUBE.SALES, 1) OVER HIERARCHY (&quot;TIME&quot;.CALENDAR BY ANCESTOR AT LEVEL &quot;TIME&quot;.CALENDAR.CALENDAR_YEAR POSITION FROM BEGINNING) * 100">
+        <Classification
+          Value="AwmDescriptionType=TIMESERIES_PERIOD TO DATE PERIOD PERCENT DIFF"/>
+        <Classification
+          Value="AwmDescriptionType=FREE_FORM"/>
+        <Classification
+          Value="AwmDescriptionType=TIME_PDIFF_PAR_PERIOD"/>
+        <Description
+          Type="AWMDescriptionType"
+          Language="AMERICAN">
+        </Description>
+        <Description
+          Type="Description"
+          Language="AMERICAN"
+          Value="Sales YTD % Chg Prior Year">
+        </Description>
+        <Description
+          Type="LongDescription"
+          Language="AMERICAN"
+          Value="Sales YTD % Chg Prior Year">
+        </Description>
+        <Description
+          Type="ShortDescription"
+          Language="AMERICAN"
+          Value="Sales YTD % Chg Prior Year">
+        </Description>
+      </DerivedMeasure>
+    </Measure>
+    <Measure>
+      <DerivedMeasure
+        ETMeasureColumnName="SALES_YTD_PY"
+        Name="SALES_YTD_PY"
+        MeasureExpression="LAG(UNITS_CUBE.SALES_YTD, 1) OVER HIERARCHY (&quot;TIME&quot;.CALENDAR BY ANCESTOR AT LEVEL &quot;TIME&quot;.CALENDAR.CALENDAR_YEAR POSITION FROM BEGINNING)">
+        <Classification
+          Value="AwmDescriptionType=TIMESERIES_PERIOD TO DATE PERIOD AGO"/>
+        <Classification
+          Value="AwmDescriptionType=TIME_PAR_PERIOD"/>
+        <Description
+          Type="AWMDescriptionType"
+          Language="AMERICAN">
+        </Description>
+        <Description
+          Type="Description"
+          Language="AMERICAN"
+          Value="Sales YTD Prior Year">
+        </Description>
+        <Description
+          Type="LongDescription"
+          Language="AMERICAN"
+          Value="Sales YTD Prior Year">
+        </Description>
+        <Description
+          Type="ShortDescription"
+          Language="AMERICAN"
+          Value="Sales YTD Prior Year">
+        </Description>
+      </DerivedMeasure>
+    </Measure>
+    <Measure>
+      <DerivedMeasure
+        ETMeasureColumnName="PROFIT"
+        Name="PROFIT"
+        MeasureExpression="UNITS_CUBE.SALES - UNITS_CUBE.COST">
+        <Classification
+          Value="AwmDescriptionType=FREE_FORM"/>
+        <Description
+          Type="AWMDescriptionType"
+          Language="AMERICAN"
+          Value="FREE_FORM">
+        </Description>
+        <Description
+          Type="Description"
+          Language="AMERICAN"
+          Value="Profit">
+        </Description>
+        <Description
+          Type="LongDescription"
+          Language="AMERICAN"
+          Value="Profit">
+        </Description>
+        <Description
+          Type="ShortDescription"
+          Language="AMERICAN"
+          Value="Profit">
+        </Description>
+      </DerivedMeasure>
+    </Measure>
+    <Measure>
+      <DerivedMeasure
+        ETMeasureColumnName="HOW_IS_MARGIN"
+        Name="HOW_IS_MARGIN">
+        <Classification
+          Value="AwmDescriptionType=FREE_FORM"/>
+        <Description
+          Type="AWMDescriptionType"
+          Language="AMERICAN"
+          Value="FREE_FORM">
+        </Description>
+        <Description
+          Type="Description"
+          Language="AMERICAN"
+          Value="How Is Margin">
+        </Description>
+        <Description
+          Type="LongDescription"
+          Language="AMERICAN"
+          Value="How Is Margin">
+        </Description>
+        <Description
+          Type="ShortDescription"
+          Language="AMERICAN"
+          Value="How Is Margin">
+        </Description>
+        <MeasureExpression>
+          <![CDATA[CASE 
+  WHEN UNITS_CUBE.PROFIT / UNITS_CUBE.SALES > 0.2 THEN 'GROOVY'
+  WHEN UNITS_CUBE.PROFIT / UNITS_CUBE.SALES < 0.1 THEN 'YIPES'
+  ELSE 'WHATEVER'
+  END ]]>
+        </MeasureExpression>
+      </DerivedMeasure>
+    </Measure>
+    <Measure>
+      <DerivedMeasure
+        ETMeasureColumnName="PROFIT_3_PER_MOVAVG"
+        Name="PROFIT_3_PER_MOVAVG"
+        MeasureExpression="AVG(UNITS_CUBE.PROFIT) OVER HIERARCHY (&quot;TIME&quot;.CALENDAR BETWEEN 2 PRECEDING AND CURRENT MEMBER WITHIN LEVEL)">
+        <Classification
+          Value="AwmDescriptionType=TIME_MOV_AVG"/>
+        <Description
+          Type="AWMDescriptionType"
+          Language="AMERICAN"
+          Value="TIME_MOV_AVG">
+        </Description>
+        <Description
+          Type="Description"
+          Language="AMERICAN"
+          Value="Profit 3 Period Moving Avg">
+        </Description>
+        <Description
+          Type="LongDescription"
+          Language="AMERICAN"
+          Value="Profit 3 Period Moving Avg">
+        </Description>
+        <Description
+          Type="ShortDescription"
+          Language="AMERICAN"
+          Value="Profit 3 Period Moving Avg">
+        </Description>
+      </DerivedMeasure>
+    </Measure>
+    <Measure>
+      <DerivedMeasure
+        ETMeasureColumnName="PROFIT_CHG_PP"
+        Name="PROFIT_CHG_PP"
+        MeasureExpression="LAG_VARIANCE(UNITS_CUBE.PROFIT, 1) OVER HIERARCHY (&quot;TIME&quot;.CALENDAR)">
+        <Classification
+          Value="AwmDescriptionType=TIMESERIES_PRIOR PERIOD"/>
+        <Classification
+          Value="AwmDescriptionType=TIMESERIES_PRIOR PERIOD DIFFERENCE"/>
+        <Description
+          Type="AWMDescriptionType"
+          Language="AMERICAN">
+        </Description>
+        <Description
+          Type="Description"
+          Language="AMERICAN"
+          Value="Profit Change Prior Period">
+        </Description>
+        <Description
+          Type="LongDescription"
+          Language="AMERICAN"
+          Value="Profit Change Prior Period">
+        </Description>
+        <Description
+          Type="ShortDescription"
+          Language="AMERICAN"
+          Value="Profit Change Prior Period">
+        </Description>
+      </DerivedMeasure>
+    </Measure>
+    <Measure>
+      <DerivedMeasure
+        ETMeasureColumnName="PROFIT_CHG_PY"
+        Name="PROFIT_CHG_PY"
+        MeasureExpression="LAG_VARIANCE(UNITS_CUBE.PROFIT, 1) OVER HIERARCHY (&quot;TIME&quot;.CALENDAR BY ANCESTOR AT LEVEL &quot;TIME&quot;.CALENDAR.CALENDAR_YEAR POSITION FROM BEGINNING)">
+        <Classification
+          Value="AwmDescriptionType=TIME_PAR_PERIOD"/>
+        <Classification
+          Value="AwmDescriptionType=TIME_DIFF_PAR_PERIOD"/>
+        <Description
+          Type="AWMDescriptionType"
+          Language="AMERICAN">
+        </Description>
+        <Description
+          Type="Description"
+          Language="AMERICAN"
+          Value="Profit Change Prior Year">
+        </Description>
+        <Description
+          Type="LongDescription"
+          Language="AMERICAN"
+          Value="Profit Change Prior Year">
+        </Description>
+        <Description
+          Type="ShortDescription"
+          Language="AMERICAN"
+          Value="Profit Change Prior Year">
+        </Description>
+      </DerivedMeasure>
+    </Measure>
+    <Measure>
+      <DerivedMeasure
+        ETMeasureColumnName="PROFIT_PCT_CHG_PP"
+        Name="PROFIT_PCT_CHG_PP"
+        MeasureExpression="LAG_VARIANCE_PERCENT(UNITS_CUBE.PROFIT, 1) OVER HIERARCHY (&quot;TIME&quot;.CALENDAR) * 100">
+        <Classification
+          Value="AwmDescriptionType=FREE_FORM"/>
+        <Description
+          Type="AWMDescriptionType"
+          Language="AMERICAN">
+        </Description>
+        <Description
+          Type="Description"
+          Language="AMERICAN"
+          Value="Profit % Chg Prior Period">
+        </Description>
+        <Description
+          Type="LongDescription"
+          Language="AMERICAN"
+          Value="Profit % Chg Prior Period">
+        </Description>
+        <Description
+          Type="ShortDescription"
+          Language="AMERICAN"
+          Value="Profit % Chg Prior Period">
+        </Description>
+      </DerivedMeasure>
+    </Measure>
+    <Measure>
+      <DerivedMeasure
+        ETMeasureColumnName="PROFIT_PCT_CHG_PY"
+        Name="PROFIT_PCT_CHG_PY"
+        MeasureExpression="LAG_VARIANCE_PERCENT(UNITS_CUBE.PROFIT, 1) OVER HIERARCHY (&quot;TIME&quot;.CALENDAR BY ANCESTOR AT LEVEL &quot;TIME&quot;.CALENDAR.CALENDAR_YEAR POSITION FROM BEGINNING) * 100">
+        <Classification
+          Value="AwmDescriptionType=FREE_FORM"/>
+        <Description
+          Type="AWMDescriptionType"
+          Language="AMERICAN"
+          Value="FREE_FORM">
+        </Description>
+        <Description
+          Type="Description"
+          Language="AMERICAN"
+          Value="Profit % Chg Prior Year">
+        </Description>
+        <Description
+          Type="LongDescription"
+          Language="AMERICAN"
+          Value="Profit % Chg Prior Year">
+        </Description>
+        <Description
+          Type="ShortDescription"
+          Language="AMERICAN"
+          Value="Profit % Chg Prior Year">
+        </Description>
+      </DerivedMeasure>
+    </Measure>
+    <Measure>
+      <DerivedMeasure
+        ETMeasureColumnName="PROFIT_PP"
+        Name="PROFIT_PP"
+        MeasureExpression="LAG(UNITS_CUBE.PROFIT, 1) OVER HIERARCHY (&quot;TIME&quot;.CALENDAR)">
+        <Classification
+          Value="AwmDescriptionType=TIMESERIES_PRIOR PERIOD"/>
+        <Description
+          Type="AWMDescriptionType"
+          Language="AMERICAN"
+          Value="TIMESERIES_PRIOR PERIOD">
+        </Description>
+        <Description
+          Type="Description"
+          Language="AMERICAN"
+          Value="Profit Prior Period">
+        </Description>
+        <Description
+          Type="LongDescription"
+          Language="AMERICAN"
+          Value="Profit Prior Period">
+        </Description>
+        <Description
+          Type="ShortDescription"
+          Language="AMERICAN"
+          Value="Profit Prior Period">
+        </Description>
+      </DerivedMeasure>
+    </Measure>
+    <Measure>
+      <DerivedMeasure
+        ETMeasureColumnName="PROFIT_PROD_PRNT_SHARE"
+        Name="PROFIT_PROD_PRNT_SHARE"
+        MeasureExpression="SHARE(UNITS_CUBE.PROFIT OF PRODUCT.PRIMARY PARENT) * 100">
+        <Classification
+          Value="AwmDescriptionType=SHARE"/>
+        <Description
+          Type="AWMDescriptionType"
+          Language="AMERICAN"
+          Value="SHARE">
+        </Description>
+        <Description
+          Type="Description"
+          Language="AMERICAN"
+          Value="Profit Share of Prod Parent">
+        </Description>
+        <Description
+          Type="LongDescription"
+          Language="AMERICAN"
+          Value="Profit Share of Prod Parent">
+        </Description>
+        <Description
+          Type="ShortDescription"
+          Language="AMERICAN"
+          Value="Profit Share of Prod Parent">
+        </Description>
+      </DerivedMeasure>
+    </Measure>
+    <Measure>
+      <DerivedMeasure
+        ETMeasureColumnName="PROFIT_PROD_TOT_SHARE"
+        Name="PROFIT_PROD_TOT_SHARE"
+        MeasureExpression="SHARE(UNITS_CUBE.PROFIT OF PRODUCT.PRIMARY TOP) * 100">
+        <Classification
+          Value="AwmDescriptionType=SHARE"/>
+        <Description
+          Type="AWMDescriptionType"
+          Language="AMERICAN"
+          Value="SHARE">
+        </Description>
+        <Description
+          Type="Description"
+          Language="AMERICAN"
+          Value="Profit Share of Total Product">
+        </Description>
+        <Description
+          Type="LongDescription"
+          Language="AMERICAN"
+          Value="Profit Share of Total Product">
+        </Description>
+        <Description
+          Type="ShortDescription"
+          Language="AMERICAN"
+          Value="Profit Share of Total Product">
+        </Description>
+      </DerivedMeasure>
+    </Measure>
+    <Measure>
+      <DerivedMeasure
+        ETMeasureColumnName="PROFIT_PY"
+        Name="PROFIT_PY"
+        MeasureExpression="LAG(UNITS_CUBE.PROFIT, 1) OVER HIERARCHY (&quot;TIME&quot;.CALENDAR BY ANCESTOR AT LEVEL &quot;TIME&quot;.CALENDAR.CALENDAR_YEAR POSITION FROM BEGINNING)">
+        <Classification
+          Value="AwmDescriptionType=TIME_PAR_PERIOD"/>
+        <Description
+          Type="AWMDescriptionType"
+          Language="AMERICAN"
+          Value="TIME_PAR_PERIOD">
+        </Description>
+        <Description
+          Type="Description"
+          Language="AMERICAN"
+          Value="Profit Prior Year">
+        </Description>
+        <Description
+          Type="LongDescription"
+          Language="AMERICAN"
+          Value="Profit Prior Year">
+        </Description>
+        <Description
+          Type="ShortDescription"
+          Language="AMERICAN"
+          Value="Profit Prior Year">
+        </Description>
+      </DerivedMeasure>
+    </Measure>
+    <Measure>
+      <DerivedMeasure
+        ETMeasureColumnName="PROFIT_YTD"
+        Name="PROFIT_YTD"
+        MeasureExpression="SUM(UNITS_CUBE.PROFIT) OVER HIERARCHY (&quot;TIME&quot;.CALENDAR BETWEEN UNBOUNDED PRECEDING AND CURRENT MEMBER WITHIN ANCESTOR AT LEVEL &quot;TIME&quot;.CALENDAR_YEAR)">
+        <Classification
+          Value="AwmDescriptionType=TIMESERIES_PERIOD TO DATE"/>
+        <Description
+          Type="AWMDescriptionType"
+          Language="AMERICAN">
+        </Description>
+        <Description
+          Type="Description"
+          Language="AMERICAN"
+          Value="Profit YTD">
+        </Description>
+        <Description
+          Type="LongDescription"
+          Language="AMERICAN"
+          Value="Profit YTD">
+        </Description>
+        <Description
+          Type="ShortDescription"
+          Language="AMERICAN"
+          Value="Profit YTD">
+        </Description>
+      </DerivedMeasure>
+    </Measure>
+    <Measure>
+      <DerivedMeasure
+        ETMeasureColumnName="PROFIT_YTD_CHG_PY"
+        Name="PROFIT_YTD_CHG_PY"
+        MeasureExpression="LAG_VARIANCE(UNITS_CUBE.PROFIT_YTD, 1) OVER HIERARCHY (&quot;TIME&quot;.CALENDAR BY ANCESTOR AT LEVEL &quot;TIME&quot;.CALENDAR.CALENDAR_YEAR POSITION FROM BEGINNING)">
+        <Classification
+          Value="AwmDescriptionType=TIMESERIES_PERIOD TO DATE PERIOD AGO DIFF"/>
+        <Classification
+          Value="AwmDescriptionType=TIME_DIFF_PAR_PERIOD"/>
+        <Description
+          Type="AWMDescriptionType"
+          Language="AMERICAN">
+        </Description>
+        <Description
+          Type="Description"
+          Language="AMERICAN"
+          Value="Profit YTD Chg Prior Year">
+        </Description>
+        <Description
+          Type="LongDescription"
+          Language="AMERICAN"
+          Value="Profit YTD Chg Prior Year">
+        </Description>
+        <Description
+          Type="ShortDescription"
+          Language="AMERICAN"
+          Value="Profit YTD Chg Prior Year">
+        </Description>
+      </DerivedMeasure>
+    </Measure>
+    <Measure>
+      <DerivedMeasure
+        ETMeasureColumnName="PROFIT_YTD_PCT_CHG_PY"
+        Name="PROFIT_YTD_PCT_CHG_PY"
+        MeasureExpression="LAG_VARIANCE_PERCENT(UNITS_CUBE.PROFIT, 1) OVER HIERARCHY (&quot;TIME&quot;.CALENDAR BY ANCESTOR AT LEVEL &quot;TIME&quot;.CALENDAR.CALENDAR_YEAR POSITION FROM BEGINNING) * 100">
+        <Classification
+          Value="AwmDescriptionType=TIMESERIES_PERIOD TO DATE PERIOD PERCENT DIFF"/>
+        <Classification
+          Value="AwmDescriptionType=FREE_FORM"/>
+        <Classification
+          Value="AwmDescriptionType=TIME_PDIFF_PAR_PERIOD"/>
+        <Description
+          Type="AWMDescriptionType"
+          Language="AMERICAN">
+        </Description>
+        <Description
+          Type="Description"
+          Language="AMERICAN"
+          Value="Profit YTD % Chg Prior Year">
+        </Description>
+        <Description
+          Type="LongDescription"
+          Language="AMERICAN"
+          Value="Profit YTD % Chg Prior Year">
+        </Description>
+        <Description
+          Type="ShortDescription"
+          Language="AMERICAN"
+          Value="Profit YTD % Chg Prior Year">
+        </Description>
+      </DerivedMeasure>
+    </Measure>
+    <Measure>
+      <DerivedMeasure
+        ETMeasureColumnName="PROFIT_YTD_PY"
+        Name="PROFIT_YTD_PY"
+        MeasureExpression="LAG(UNITS_CUBE.PROFIT_YTD, 1) OVER HIERARCHY (&quot;TIME&quot;.CALENDAR BY ANCESTOR AT LEVEL &quot;TIME&quot;.CALENDAR.CALENDAR_YEAR POSITION FROM BEGINNING)">
+        <Classification
+          Value="AwmDescriptionType=TIMESERIES_PERIOD TO DATE PERIOD AGO"/>
+        <Classification
+          Value="AwmDescriptionType=TIME_PAR_PERIOD"/>
+        <Description
+          Type="AWMDescriptionType"
+          Language="AMERICAN">
+        </Description>
+        <Description
+          Type="Description"
+          Language="AMERICAN"
+          Value="Profit YTD Prior Year">
+        </Description>
+        <Description
+          Type="LongDescription"
+          Language="AMERICAN"
+          Value="Profit YTD Prior Year">
+        </Description>
+        <Description
+          Type="ShortDescription"
+          Language="AMERICAN"
+          Value="Profit YTD Prior Year">
+        </Description>
+      </DerivedMeasure>
+    </Measure>
+    <CubeMap
+      Name="MAP1"
+      Query="GLOBAL.UNITS_FACT">
+      <CubeDimensionalityMap
+        Name="TIME"
+        Expression="UNITS_FACT.MONTH_ID"
+        JoinCondition="TIME_DIM.MONTH_ID = UNITS_FACT.MONTH_ID">
+        <Dimensionality
+          Name="TIME"/>
+        <MappedDimension
+          Name="TIME.FISCAL.MONTH"/>
+      </CubeDimensionalityMap>
+      <CubeDimensionalityMap
+        Name="CHANNEL"
+        Expression="UNITS_FACT.CHANNEL_ID"
+        JoinCondition="CHANNEL_DIM.CHANNEL_ID = UNITS_FACT.CHANNEL_ID">
+        <Dimensionality
+          Name="CHANNEL"/>
+        <MappedDimension
+          Name="CHANNEL.PRIMARY.CHANNEL"/>
+      </CubeDimensionalityMap>
+      <CubeDimensionalityMap
+        Name="CUSTOMER"
+        Expression="UNITS_FACT.SHIP_TO_ID"
+        JoinCondition="CUSTOMER_DIM.SHIP_TO_ID = UNITS_FACT.SHIP_TO_ID">
+        <Dimensionality
+          Name="CUSTOMER"/>
+        <MappedDimension
+          Name="CUSTOMER.MARKET.SHIP_TO"/>
+      </CubeDimensionalityMap>
+      <CubeDimensionalityMap
+        Name="PRODUCT"
+        Expression="UNITS_FACT.ITEM_ID"
+        JoinCondition="PRODUCT_DIM.ITEM_ID = UNITS_FACT.ITEM_ID">
+        <Dimensionality
+          Name="PRODUCT"/>
+        <MappedDimension
+          Name="PRODUCT.PRIMARY.ITEM"/>
+      </CubeDimensionalityMap>
+      <MeasureMap
+        Name="UNITS"
+        Expression="UNITS_FACT.UNITS">
+        <Measure
+          Name="UNITS"/>
+      </MeasureMap>
+      <MeasureMap
+        Name="SALES"
+        Expression="UNITS_FACT.SALES">
+        <Measure
+          Name="SALES"/>
+      </MeasureMap>
+      <MeasureMap
+        Name="COST"
+        Expression="UNITS_FACT.COST">
+        <Measure
+          Name="COST"/>
+      </MeasureMap>
+    </CubeMap>
+  </Cube>
+</Metadata>

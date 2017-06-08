@@ -1,0 +1,184 @@
+
+<!DOCTYPE Metadata [
+  <!ENTITY % BIND_VALUES PUBLIC "OLAP BIND VALUES" "OLAP METADATA">
+  %BIND_VALUES;
+  ]>
+<Metadata
+  Version="1.2"
+  MinimumDatabaseVersion="11.2.0.1">
+  <StandardDimension
+    Name="PELANGGAN_DIM"
+    ETViewName="PELANGGAN_DIM_VIEW"
+    ETKeyColumnName="DIM_KEY"
+    ETLevelColumnName="LEVEL_NAME"
+    ETMemberTypeColumnName="MEMBER_TYPE"
+    ETDimensionOrderColumnName="DIM_ORDER"
+    DefaultHierarchy="PELANGGAN_HIRARIKI"
+    ETHierarchyOrderColumnName="HIER_ORDER">
+    <Organization>
+      <AWPrimaryDimensionOrganization
+        AW="&AW_NAME;"
+        AddUniqueKeyPrefix="False"
+        HierarchyConsistencyRule="STAR_CONSISTENT"
+        MVOption="NONE">
+        <MVCreationOptions
+          RefreshType="COMPLETE"
+          RefreshOn="DEMAND"
+          UsingConstraintsClause="TRUSTED">
+        </MVCreationOptions>
+        <DefaultBuild>
+          <![CDATA[BUILD SPEC SYS_DEFAULT
+(
+  LOAD, 
+  COMPILE
+)]]>
+        </DefaultBuild>
+      </AWPrimaryDimensionOrganization>
+    </Organization>
+    <DimensionLevel
+      Name="PROPINSI"
+      ETKeyColumnName="PROPINSI">
+      <Description
+        Type="LongDescription"
+        Language="AMERICAN"
+        Value="PROPINSI">
+      </Description>
+      <Description
+        Type="ShortDescription"
+        Language="AMERICAN"
+        Value="PROPINSI">
+      </Description>
+      <Description
+        Type="Description"
+        Language="AMERICAN"
+        Value="PROPINSI">
+      </Description>
+    </DimensionLevel>
+    <DimensionLevel
+      Name="KOTA"
+      ETKeyColumnName="KOTA">
+      <Description
+        Type="LongDescription"
+        Language="AMERICAN"
+        Value="KOTA">
+      </Description>
+      <Description
+        Type="ShortDescription"
+        Language="AMERICAN"
+        Value="KOTA">
+      </Description>
+      <Description
+        Type="Description"
+        Language="AMERICAN"
+        Value="KOTA">
+      </Description>
+    </DimensionLevel>
+    <DimensionLevel
+      Name="NAMA"
+      ETKeyColumnName="NAMA">
+      <Description
+        Type="LongDescription"
+        Language="AMERICAN"
+        Value="NAMA">
+      </Description>
+      <Description
+        Type="ShortDescription"
+        Language="AMERICAN"
+        Value="NAMA">
+      </Description>
+      <Description
+        Type="Description"
+        Language="AMERICAN"
+        Value="NAMA">
+      </Description>
+    </DimensionLevel>
+    <DimensionLevel
+      Name="NO_PELANGGAN"
+      ETKeyColumnName="NO_PELANGGAN">
+      <Description
+        Type="LongDescription"
+        Language="AMERICAN"
+        Value="NO PELANGGAN">
+      </Description>
+      <Description
+        Type="ShortDescription"
+        Language="AMERICAN"
+        Value="NO PELANGGAN">
+      </Description>
+      <Description
+        Type="Description"
+        Language="AMERICAN"
+        Value="NO PELANGGAN">
+      </Description>
+    </DimensionLevel>
+    <Description
+      Type="LongDescription"
+      Language="AMERICAN"
+      Value="PELANGGAN DIM">
+    </Description>
+    <Description
+      Type="ShortDescription"
+      Language="AMERICAN"
+      Value="PELANGGAN DIM">
+    </Description>
+    <Description
+      Type="Description"
+      Language="AMERICAN"
+      Value="PELANGGAN DIM">
+    </Description>
+    <Hierarchy>
+      <LevelHierarchy
+        Name="PELANGGAN_HIRARIKI"
+        IsSkipLevel="False"
+        IsRagged="False"
+        ETParentColumnName="PARENT"
+        ETDepthColumnName="DEPTH"
+        ETViewName="PELANGGAN_DIM_PELANGGAN_H_VIEW">
+        <HierarchyLevel
+          DimensionLevel="PROPINSI">
+          <HierarchyLevelMap
+            KeyExpression="PELANGGAN.PROPINSI_PELANGGAN"
+            Query="PELANGGAN">
+          </HierarchyLevelMap>
+        </HierarchyLevel>
+        <HierarchyLevel
+          DimensionLevel="KOTA">
+          <HierarchyLevelMap
+            KeyExpression="PELANGGAN.KOTA_PELANGGAN"
+            Query="PELANGGAN">
+          </HierarchyLevelMap>
+        </HierarchyLevel>
+        <HierarchyLevel
+          DimensionLevel="NAMA">
+          <HierarchyLevelMap
+            KeyExpression="PELANGGAN.NAMA_PELANGGAN"
+            Query="PELANGGAN">
+          </HierarchyLevelMap>
+        </HierarchyLevel>
+        <HierarchyLevel
+          DimensionLevel="NO_PELANGGAN">
+          <HierarchyLevelMap
+            KeyExpression="PELANGGAN.NO_PELANGGAN"
+            Query="PELANGGAN">
+          </HierarchyLevelMap>
+        </HierarchyLevel>
+        <Description
+          Type="LongDescription"
+          Language="AMERICAN"
+          Value="PELANGGAN HIRARIKI">
+        </Description>
+        <Description
+          Type="ShortDescription"
+          Language="AMERICAN"
+          Value="PELANGGAN HIRARIKI">
+        </Description>
+        <Description
+          Type="Description"
+          Language="AMERICAN"
+          Value="PELANGGAN HIRARIKI">
+        </Description>
+      </LevelHierarchy>
+    </Hierarchy>
+  </StandardDimension>
+</Metadata>
+<!--Generated by the Oracle Analytic Workspace Manager-->

@@ -1,0 +1,255 @@
+<HTML>
+<HEAD>
+  <TITLE>Readme for the GLOBAL Schema for Oracle OLAP 11g</TITLE>
+</HEAD>
+
+<H1><STRONG>Global Sample Schema for Oracle&reg; OLAP 11<I>g</I></STRONG></H1>
+
+<P>The Global sample schema is used by the examples in the following
+  OLAP documentation for Oracle OLAP 11<I>g</I> Release 1 (11.1)
+  and Oracle OLAP 11<I>g</I> Release 2 (11.2).
+<UL>
+        <LI><I>Oracle OLAP User's Guide</I></LI>
+  <LI><I>Oracle OLAP Java API Developer's Guide</I></LI>
+  <LI><I>Oracle OLAP Java API Reference</I></LI>
+</UL>
+      These documents are in the Online Analytical Processing (OLAP) section of the
+      Oracle Database Documentation Library.
+      <UL>
+        <LI>For the 11<I>g</I> Release 1 (11.1) documentation, see <a href=
+      "http://www.oracle.com/pls/db111/portal.portal_db?selected=6&frame=#online_analytical_processing_(olap)"> OLAP Documentation for 11.1</a>.</LI>
+        <LI>For the 11<I>g</I> Release 2 (11.2) documentation, see <a href=
+	        "http://www.oracle.com/pls/db112/portal.portal_db?selected=6&frame=#online_analytical_processing_(olap)"> OLAP Documentation for 11.2</a>.</LI>
+      </UL>
+      <P> The Global schema contains eight tables. Examples in
+        the Oracle OLAP documentation create OLAP dimensions, attributes, cubes,
+        and measures and map them to columns in the relational tables.
+      <P>For information on using Analytic Workspace Manager to define an OLAP
+        dimensional data model and create an analytic workspace, see <I>Oracle
+          OLAP User's Guide</I>. For information on defining an OLAP dimensional
+        data model and creating analytic workspaces using the OLAP Java API, see <I>Oracle OLAP Java API Developer's Guide</I>.
+      <H2>Prerequisites</H2>
+      For access to the OLAP option, you need the Enterprise Edition of the
+      Oracle Database 11<I>g</I> release that you are using.
+      <P>For the <I>Oracle OLAP User's Guide</I> documents, you also need
+        Analytic Workspace Manager 11<I>g</I> for the release that you are using.
+      <P>To develop programs using the OLAP Java API, you also need a JDK or
+        IDE, such as JDeveloper, that is  compatible  with the release that you are using.
+        For those prerequisites, see the <I>Oracle OLAP Java API Developer's Guide</I> or <I>Oracle OLAP
+          Java API Reference</I> documents.
+      <H2>Sample Kit Contents</H2>
+      The sample kit is in the compressed file <CODE>global_11g_schema.zip</CODE>. The sample kit includes:
+      <UL>
+        <LI>A script that installs the Global schema, <CODE>global_11g_install.sql</CODE>. This script does the following:
+          <UL>
+              <LI>Prompts for a password for the GLOBAL user.
+              <LI>Creates the GLOBAL user and grants to GLOBAL the privileges
+                required to create and use analytic workspaces.
+              <LI>Connects as the GLOBAL user.
+              <LI>Imports the tables and data of the schema. </LI>
+          </UL>
+        <LI>A script that creates the GLOBAL analytic workspace in the GLOBAL
+          schema, <CODE>global_11g_create_cubes.sql</CODE>. This script does the
+          following:
+          <UL>
+              <LI>Prompts for the file system directory where the installation files
+                are found. This file system directory is used in the definition of an
+                Oracle directory object.
+              <LI>Prompts for a GLOBAL user password
+              <LI>Connects as the GLOBAL user
+              <LI>Drops the GLOBAL analytic workspace if it already exists
+              <LI>Creates the GLOBAL analytic workspace, including all the cubes and
+                dimensions. Views and materialized views are created over the cubes
+                and dimensions. </LI>
+          </UL>
+        <LI>The <CODE>global_11g_source.dmp</CODE> file, which contains the
+          GLOBAL tables and relational metadata that are required to enable
+          general query refresh and rewrite for cube materialized views. This
+          includes primary key constraints, foreign key constraints, and
+          relational dimension objects. For more details on the required metadata,
+          please refer to <I>Oracle Database Data Warehousing Guide</I>, which is
+          available in the Supporting Documentation section of the Oracle Database
+          Documentation Library. For 11<I>g</I> Release 1, see <a href=
+        "http://www.oracle.com/pls/db111/portal.portal_db?selected=6&frame=#supporting_documentation"> Supporting Documentation for 11.1</a>.
+          For 11.2, see <a href=
+	    "http://www.oracle.com/pls/db112/portal.portal_db?selected=6&frame=#supporting_documentation"> Supporting Documentation for 11.2</a>.
+          <!-- <A
+        href="http://download.oracle.com/docs/cd/B28359_01/server.111/b28313.pdf">Oracle
+        Database Data Warehousing Guide (11.1)</A>. -->
+        <LI>A script that uninstalls the Global schema, <CODE>global_11g_remove.sql</CODE>. This script drops the GLOBAL user
+          and all of the objects created by the <CODE>global_11g_install.sql</CODE> script.
+        <LI>Templates that contain XML definitions of OLAP metadata objects. For
+          information on the templates, see <A
+        href="http://www.oracle.com/technology/products/bi/olap/11g/samples/schemas/global_11g_readme.html#templates">Templates
+            in the Sample Kit</A>. </LI>
+      </UL>
+      <H2>Installing the Global Schema</H2>
+      To install the Global sample schema,
+      do the following:
+      <OL>
+        <LI>Download the <CODE>global_11g_schema.zip</CODE> file.
+        <LI>Extract the contents of the file.
+        <LI>Change directories to the directory containing the extracted files.
+        <LI>Start SQL*Plus and connect as the SYSTEM user.
+        <LI>Run the installation script. For example, enter the following
+          command. <BR>
+          <CODE>SQL&gt; @global_11g_install;</CODE>
+          <LI>Optionally, create the GLOBAL analytic workspace.<BR>
+              <CODE>SQL&gt;
+                @global_11g_create_cubes.sql;</CODE><BR>
+          </LI>
+      </OL>
+      <H2>Tables in the Global Schema</H2>
+      The Global schema has four dimension
+      tables, two fact tables, and two other tables. The following table lists
+      the tables and provides brief descriptions of them.
+      <P>
+      <TABLE title="Tables in the Global Schema" cellSpacing=0 cellPadding=5
+      summary="This table describes the tables that are in the Global sample schema."
+      border=1>
+        <THEAD>
+          <TR>
+            <TH id=tbls_head align=middle><FONT face="Arial, Helvetica"
+            size=-1>Table</FONT></TH>
+            <TH id=tbls_descr align=middle><FONT face="Arial, Helvetica"
+            size=-1>Description</FONT></TH>
+          </TR>
+        </THEAD>
+        <TBODY>
+          <TR>
+            <TD vAlign=top headers=tbls_head><CODE>CHANNEL_DIM</CODE></A> </TD>
+            <TD vAlign=top headers=tbls_descr>Contains sales channel information
+              that is the basis of an OLAP dimension that has one hierarchy with
+              two levels. The table supports description attributes in three
+              languages. </TD>
+          </TR>
+          <TR>
+            <TD vAlign=top headers=tbls_head><CODE>CUSTOMER_DIM</CODE></A> </TD>
+            <TD vAlign=top headers=tbls_descr>Contains customer information that
+              is the basis of an OLAP dimension that has two hierarchies. Each
+              hierarchy has four levels. The table supports description attributes
+              in three languages. </TD>
+          </TR>
+          <TR>
+            <TD vAlign=top headers=tbls_head><CODE>PRODUCT_DIM</CODE></A> </TD>
+            <TD vAlign=top headers=tbls_descr>Contains product information that
+              is the basis of an OLAP dimension that has one hierarchy with four
+              levels. The table supports description attributes in three
+              languages. It also supports attributes for packages of products,
+              buyers, and marketing managers. </TD>
+          </TR>
+          <TR>
+            <TD vAlign=top headers=tbls_head><CODE>TIME_DIM</CODE></A> </TD>
+            <TD vAlign=top headers=tbls_descr>Contains time period information
+              that is the basis of an OLAP dimension that has two hierarchies.
+              Each hierarchy has four levels. The table supports end date and time
+              span attributes. </TD>
+          </TR>
+          <TR>
+            <TD vAlign=top headers=tbls_head><CODE>PRICE_FACT</CODE></A> </TD>
+            <TD vAlign=top headers=tbls_descr>Contains data for unit prices and
+              unit costs by product and time period. This table is the basis for
+              an OLAP cube that has two measures that are dimensioned by the
+              product and time dimensions. </TD>
+          </TR>
+          <TR>
+            <TD vAlign=top headers=tbls_head><CODE>UNITS_FACT</CODE></A> </TD>
+            <TD vAlign=top headers=tbls_descr>Contains data for the number of
+              units sold, the cost of the units sold, and the amount of gross
+              sales revenue received by channel, customer, product, and time
+              period. This table is the basis for an OLAP cube that has three
+              measures that are dimensioned by the channel, customer, product and
+              time dimensions. </TD>
+          </TR>
+          <TR>
+            <TD vAlign=top headers=tbls_head><CODE>ACCOUNT</CODE></A> </TD>
+            <TD vAlign=top headers=tbls_descr>Contains additional information
+              about customers by account. It is related to the <CODE>CUSTOMER_DIM</CODE> table by <CODE>ACCOUNT_ID</CODE>. </TD>
+          </TR>
+          <TR>
+            <TD vAlign=top
+            headers=tbls_head><CODE>PRODUCT_CHILD_PARENT</CODE></A> </TD>
+            <TD vAlign=top headers=tbls_descr>Contains much of the same data as
+              the <CODE>PRODUCT_DIM</CODE> table. This table is the basis for an
+              OLAP dimension that has a value-based hierarchy rather than a
+              hierarchy based on levels. </TD>
+          </TR>
+        </TBODY>
+      </TABLE>
+      <A
+name=templates></A>
+      <H2>Templates in the Sample Kit</H2>
+      In Analytic Workspace Manager or in an
+      OLAP Java API program, you can import or export OLAP metadata objects as
+      XML templates. In the <CODE>Templates</CODE> directory, the sample kit
+      contains the following XML templates that you can import into an analytic
+      workspace.
+      <P>
+      <TABLE title="Sample XML Templates" cellSpacing=0 cellPadding=5
+      summary="This table describes the XML templates that are in the sample kit."
+      border=1>
+        <THEAD>
+          <TR>
+            <TH id=templ_head align=middle><FONT face="Arial, Helvetica"
+            size=-1>Template</FONT></TH>
+            <TH id=templ_descr align=middle><FONT face="Arial, Helvetica"
+            size=-1>Description</FONT></TH>
+          </TR>
+        </THEAD>
+        <TBODY>
+          <TR>
+            <TD vAlign=top headers=templ_head><CODE>GLOBAL.XML</CODE></A> </TD>
+            <TD vAlign=top headers=templ_descr>Defines an analytic workspace
+              name Global that has two cubes and four dimensions but does not have
+              materialized views. </TD>
+          </TR>
+          <TR>
+            <TD vAlign=top headers=templ_head><CODE>GLOBAL_MV.XML</CODE></A> </TD>
+            <TD vAlign=top headers=templ_descr>Defines an analytic workspace
+              name Global that has two cubes and four dimensions. The Units cube
+              and the four dimensions are enabled as materialized views. The Price
+              cube is not enabled as a materialized view. This template is used by <CODE>global_11g_create_cubes.sql</CODE> when building the analytic
+              workspace using the script. </TD>
+          </TR>
+          <TR>
+            <TD vAlign=top headers=templ_head><CODE>TIME.XML</CODE></A> </TD>
+            <TD vAlign=top headers=templ_descr>Defines a Time dimension that has
+              two level-based hierarchies. </TD>
+          </TR>
+          <TR>
+            <TD vAlign=top headers=templ_head><CODE>PRODUCT.XML</CODE></A> </TD>
+            <TD vAlign=top headers=templ_descr>Defines a Product dimension that
+              has one level-based hierarchy. </TD>
+          </TR>
+          <TR>
+            <TD vAlign=top headers=templ_head><CODE>CHANNEL.XML</CODE></A> </TD>
+            <TD vAlign=top headers=templ_descr>Defines a Channel dimension that
+              has one level-based hierarchy. </TD>
+          </TR>
+          <TR>
+            <TD vAlign=top headers=templ_head><CODE>CUSTOMER.XML</CODE></A> </TD>
+            <TD vAlign=top headers=templ_descr>Defines a Customer dimension that
+              has two level-based hierarchies. </TD>
+          </TR>
+          <TR>
+            <TD vAlign=top headers=templ_head><CODE>UNITS_CUBE.XML</CODE></A> </TD>
+            <TD vAlign=top headers=templ_descr>Defines a Units cube without
+              materialized view capabilities. </TD>
+          </TR>
+          <TR>
+            <TD vAlign=top headers=templ_head><CODE>PRICE_CUBE.XML</CODE></A> </TD>
+            <TD vAlign=top headers=templ_descr>Defines a Price cube without
+              materialized view capabilities. </TD>
+          </TR>
+        </TBODY>
+      </TABLE>
+      <H2>Uninstalling the Global Schema</H2>
+      To uninstall the Global schema, run
+      the <CODE>global_11g_remove.sql</CODE> script as the SYSTEM user.
+      <P>
+      <HR>
+      <CENTER>
+        Copyright &copy; 2009, Oracle. All rights reserved.
+      </CENTER>
+</BODY>
+</HTML>

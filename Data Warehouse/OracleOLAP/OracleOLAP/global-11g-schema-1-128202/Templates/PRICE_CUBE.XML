@@ -1,0 +1,154 @@
+
+<!DOCTYPE Metadata [
+  <!ENTITY % BIND_VALUES PUBLIC "OLAP BIND VALUES" "OLAP METADATA">
+  %BIND_VALUES;
+  ]>
+<Metadata
+  Version="1.0">
+  <Cube
+    Name="PRICE_CUBE"
+    ConsistentSolve="SOLVE 
+(
+  LAST OVER &quot;TIME&quot;
+)"
+    ETViewName="PRICE_CUBE_VIEW">
+    <Organization>
+      <AWCubeOrganization
+        NullStorage="MV_READY"
+        MVOption="NONE"
+        SparseType="COMPRESSED"
+        CubeStorageType="NUMBER"
+        DefaultBuild="BUILD SPEC Load_and_Aggregate
+(
+  LOAD NO SYNCH, 
+  SOLVE, 
+  ANALYZE
+)"
+        PrecomputePercent="20"
+        MeasureStorage="SHARED">
+        <AW
+          Name="&AW_NAME;"/>
+        <MVCreationOptions
+          RefreshType="FORCE"
+          RefreshOn="DEMAND"
+          UsingConstraintsClause="TRUSTED"
+          EnableRewriteMV="False">
+        </MVCreationOptions>
+        <SparseDimension
+          Name="PRODUCT"/>
+        <BuildSpecifications
+          Value="BUILD SPEC Load_and_Aggregate
+(
+  LOAD NO SYNCH, 
+  SOLVE, 
+  ANALYZE
+)"/>
+      </AWCubeOrganization>
+    </Organization>
+    <Dimensionality
+      Name="TIME"
+      ETKeyColumnName="TIME">
+      <Dimension
+        Name="TIME"/>
+    </Dimensionality>
+    <Dimensionality
+      Name="PRODUCT"
+      ETKeyColumnName="PRODUCT">
+      <Dimension
+        Name="PRODUCT"/>
+    </Dimensionality>
+    <Description
+      Language="AMERICAN_AMERICA.WE8MSWIN1252"
+      Type="LongDescription"
+      Value="Price Cube">
+    </Description>
+    <Description
+      Language="AMERICAN_AMERICA.WE8MSWIN1252"
+      Type="ShortDescription"
+      Value="Price Cube">
+    </Description>
+    <Description
+      Language="AMERICAN_AMERICA.WE8MSWIN1252"
+      Type="Description"
+      Value="Price Cube">
+    </Description>
+    <Measure>
+      <BaseMeasure
+        Name="UNIT_PRICE"
+        SQLDataType="NUMBER"
+        ETMeasureColumnName="UNIT_PRICE">
+        <Description
+          Language="AMERICAN_AMERICA.WE8MSWIN1252"
+          Type="LongDescription"
+          Value="Unit Price">
+        </Description>
+        <Description
+          Language="AMERICAN_AMERICA.WE8MSWIN1252"
+          Type="ShortDescription"
+          Value="Unit Price">
+        </Description>
+        <Description
+          Language="AMERICAN_AMERICA.WE8MSWIN1252"
+          Type="Description"
+          Value="Unit Price">
+        </Description>
+      </BaseMeasure>
+    </Measure>
+    <Measure>
+      <BaseMeasure
+        Name="UNIT_COST"
+        SQLDataType="NUMBER"
+        ETMeasureColumnName="UNIT_COST">
+        <Description
+          Language="AMERICAN_AMERICA.WE8MSWIN1252"
+          Type="LongDescription"
+          Value="Unit Cost">
+        </Description>
+        <Description
+          Language="AMERICAN_AMERICA.WE8MSWIN1252"
+          Type="ShortDescription"
+          Value="Unit Cost">
+        </Description>
+        <Description
+          Language="AMERICAN_AMERICA.WE8MSWIN1252"
+          Type="Description"
+          Value="Unit Cost">
+        </Description>
+      </BaseMeasure>
+    </Measure>
+    <CubeMap
+      Name="MAP1"
+      Query="GLOBAL.PRICE_FACT">
+      <CubeDimensionalityMap
+        Name="TIME"
+        Expression="PRICE_FACT.MONTH_ID"
+        JoinCondition="TIME_DIM.MONTH_ID = PRICE_FACT.MONTH_ID">
+        <Dimensionality
+          Name="TIME"/>
+        <MappedDimension
+          Name="TIME.FISCAL.MONTH"/>
+      </CubeDimensionalityMap>
+      <CubeDimensionalityMap
+        Name="PRODUCT"
+        Expression="PRICE_FACT.ITEM_ID"
+        JoinCondition="PRODUCT_DIM.ITEM_ID = PRICE_FACT.ITEM_ID">
+        <Dimensionality
+          Name="PRODUCT"/>
+        <MappedDimension
+          Name="PRODUCT.PRIMARY.ITEM"/>
+      </CubeDimensionalityMap>
+      <MeasureMap
+        Name="UNIT_PRICE"
+        Expression="PRICE_FACT.UNIT_PRICE">
+        <Measure
+          Name="UNIT_PRICE"/>
+      </MeasureMap>
+      <MeasureMap
+        Name="UNIT_COST"
+        Expression="PRICE_FACT.UNIT_COST">
+        <Measure
+          Name="UNIT_COST"/>
+      </MeasureMap>
+    </CubeMap>
+  </Cube>
+</Metadata>
