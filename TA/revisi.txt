@@ -1,0 +1,9 @@
+Big data yang digunakan adalah yang masalah scaling yang lebih mudah
+
+Tidak semua big data merupakan 
+
+COba misalkan sama sama satu mesin, jika digunakan dengan postgre itu bagaimana, apakah lebih lambat atau lebih cepat. 
+
+Tampilkan analytic data yang akan diambil
+
+Tampilkan vairansi data yang ada.
